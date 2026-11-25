@@ -2,19 +2,27 @@ import './index.css';
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useGame } from './hooks/useGame';
+import { ScreenRouter } from './screens/Screens';
 
-// Placeholder game screen. The real game is built by the game-client spec.
+/** Expanded view: the game. Screens are placeholders until Kiro's game-client spec designs them. */
 export const App = () => {
+  const g = useGame();
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen gap-4 bg-stone-950 text-stone-100">
-      <h1 className="text-2xl font-bold text-center">Descending into the crypt</h1>
-      <p className="text-base text-center text-amber-100/80">The game is being built.</p>
-    </div>
+    <main>
+      <ScreenRouter g={g} />
+      <div aria-live="polite" role="status">
+        {g.live}
+      </div>
+    </main>
   );
 };
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+const root = document.getElementById('root');
+if (root) {
+  createRoot(root).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+}
