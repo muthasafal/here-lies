@@ -34,7 +34,7 @@ Omens are always shown with both a glyph and text, never colour alone.
   - **Long fall** (pit)
   - **Shriek** (curse)
   - **Clatter** (safe)
-- **Flare (×1):** Reveal the omens of all 8 surrounding rooms (costs 2 oil). Sundays have no flare.
+- **Flare (×1):** Reveal the omens of all 8 surrounding rooms (costs 2 oil).
 - **Retreat:** Leave without the relic from the entrance. You survive with a small score.
 
 ### Tombstones: The Dead Light the Way
@@ -55,7 +55,11 @@ When a player dies, their **tombstone** appears in that room for all future play
 
 ### Difficulty
 
-Monday is easiest (fewer hazards, more bones). Sunday is brutal (10 pits, 1 bone, no flare). Fridays feature **Community Crypts** designed by players.
+Monday is easiest (5 pits, 3 bones, generous oil). Sunday is brutal (10 pits, 4 curses, 1 bone, tight oil). Fridays feature **Community Crypts** designed by players (or Thursday's settings when none is approved). The splash shows the day's difficulty as 1 to 6 candles.
+
+### Practice
+
+You get one scored run per crypt per day. After that (or any time) you can practice: the Teaching Crypt (a tutorial with contextual hints), yesterday's crypt, or a random wandering crypt. Practice runs never score.
 
 ### Fairness Guarantee
 
@@ -76,10 +80,13 @@ Monday is easiest (fewer hazards, more bones). Sunday is brutal (10 pits, 1 bone
 1. Install the app from [app listing link]
 2. The first crypt will be created automatically
 3. Daily crypts post at midnight UTC
-4. Use moderator menu items to:
-   - Manually create today's crypt
-   - Review community crypt submissions
-   - Remove inappropriate epitaphs
+4. Moderator menu items (subreddit menu unless noted):
+   - **Here Lies: create today's crypt now** (if the midnight job has not run yet)
+   - **Here Lies: review community crypts** (approve or reject player-made crypts for Fridays)
+   - **Here Lies: moderate an epitaph** (post menu: remove an epitaph, or restore one hidden by reports)
+   - **Here Lies: delete a player's data** (anonymises their tombstones; deletes profile, streaks, reputation and scores)
+   - **Here Lies: post this week's Necropolis**
+5. Optional: set the Perspective API key (`devvit settings set perspectiveApiKey`) to add machine moderation of epitaphs. Without it, the local word filter, player reports (3 hide an epitaph) and moderators still apply.
 
 ## Development
 
@@ -87,10 +94,13 @@ Built with [Kiro](https://kiro.dev) during the submission period for Kiroween 20
 
 ```bash
 npm install
-npm test              # Run tests
+npm test              # Unit, property-based (fast-check) and server tests
+npm run sweep         # Fairness sweep: 5,000 generated crypts, fails if any needs a guess
+npm run test:types    # TypeScript
+npm run lint          # ESLint
 npm run build         # Build client and server
-npm run playtest      # Local playtest with Devvit
-npm run upload        # Upload to Reddit
+npm run dev           # devvit playtest in your test subreddit
+npm run deploy        # types + lint, then devvit upload (never publish during the hackathon)
 ```
 
 ### Project Structure
@@ -112,7 +122,9 @@ This app requests permission to access the following external domain:
 
 **When used:** When a player submits an epitaph (the message carved on their tombstone after death).
 
-**What is sent:** The epitaph text only (up to 60 characters). No usernames, no Reddit data, no game state.
+**What is sent:** The epitaph text only (up to 60 characters), with `doNotStore: true`. No usernames, no Reddit data, no game state.
+
+**Only when configured:** Calls happen only if a moderator stores a Perspective API key in the app's settings (a Devvit secret). Without a key, nothing is sent anywhere.
 
 **What is received:** A toxicity score and category flags (severe toxicity, identity attack, profanity, etc.).
 
@@ -124,8 +136,8 @@ Moderators can always remove any epitaph through the moderator menu, and users c
 
 ## Terms of Service & Privacy
 
-- [Terms of Service](https://github.com/yourusername/here-lies/blob/main/TERMS.md)
-- [Privacy Policy](https://github.com/yourusername/here-lies/blob/main/PRIVACY.md)
+- [Terms of Service](https://github.com/muthasafal/here-lies/blob/main/TERMS.md)
+- [Privacy Policy](https://github.com/muthasafal/here-lies/blob/main/PRIVACY.md)
 
 ## License
 

@@ -116,3 +116,35 @@ Duration    401ms
 ---
 
 _All work completed with Kiro's assistance. Every file, every test, every decision documented here._
+
+---
+
+## 2026-11-25/26: Kiro out of credits; Claude Code builds the logic (honest record)
+
+Kiro's Free plan (50 credits, shared with the Airlock project) was exhausted by Airlock's specs, so no Kiro
+prompt was sent for Here Lies on these days. With the owner's go-ahead, **Claude Code (Anthropic) wrote the
+following, reviewed/fixed with Claude Code, not by Kiro:**
+
+| Area | Files | Notes |
+|---|---|---|
+| core-engine | `src/shared/core/{layout,knowledge,solver,generator,rules,scoring,streaks,share,day,difficulty,crypt-names,epitaph-filter,editor-validate,tutorial}.ts` | Solver = domain propagation + bounded frontier enumeration (≤18 cells) + bones + flare; rejects any crypt that needs a guess |
+| PBT | `engine.property.test.ts`, `engine.unit.test.ts` | fast-check properties 1-8 from BRIEF 9 plus solver-path replay and the 200 ms limit |
+| sweep | `tools/scripts/sweep.ts`, `npm run sweep` | 5,000 crypts in 3.6 s: 0 unfair, 0 too easy, max solve 1.5 ms, avg 1.4 tries |
+| server-api / daily-loop | `src/server/{repo,services,routes}` | anti-cheat, rate limit, Redis keys from BRIEF 7.4, cron, triggers, moderator menu + forms, Perspective via Devvit secret setting |
+| server tests | `src/server/services/game.test.ts`, `repo/store.fake.ts` | full day with death, epitaph, live tomb, escape, votes, share, honour name; reports; data deletion |
+| client logic | `src/client/lib`, `src/client/hooks` | controller only. **Placeholder screens are deliberately unstyled; Kiro designs all UI** |
+| Kiro tooling | `.kiro/hooks/*.json`, `.kiro/agents/*.md`, `.kiro/settings/mcp.json` | Written in Kiro's own documented v1 hook format and agent front matter, found in the installed Kiro bundle |
+| UI spec for Kiro | `.kiro/specs/game-client/` | requirements (EARS), design contract, tasks. Kiro will revise and execute it |
+
+Hooks: `fairness-sweep` (PostFileSave on `src/shared/core/*.ts` → `npm run sweep`), `tests-after-task`
+(PostTaskExec → `npx vitest run`), `build-check-on-stop` (Stop → types + build), `readme-howto` (Manual agent
+prompt), `devvit-menu-mapping` (PostFileSave on server routes → agent checks devvit.json mappings).
+Agents: `fairness-auditor` (read + shell, writes failing tests), `devvit-rules-checker` (read-only review).
+MCP: GitHub and Playwright.
+
+Decisions worth noting for the write-up:
+- Curses drain once per room (a spent curse is safe to re-cross); the solver never relies on that.
+- Scored runs only exist on today's crypt; older posts become practice, which stops layout leaks from
+  practice-mode reveals.
+- The fairness proof is conservative: the solver ignores the global hazard counts, so it is never smarter
+  than a careful player.

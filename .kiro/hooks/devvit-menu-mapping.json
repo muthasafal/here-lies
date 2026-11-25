@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Menu endpoints mapped in devvit.json",
+      "trigger": "PostFileSave",
+      "matcher": "src[/\\\\]server[/\\\\]routes[/\\\\](menu|forms|cron|triggers)\\.ts$",
+      "action": {
+        "type": "agent",
+        "prompt": "A server route file for /internal endpoints changed. Check that every menu item, form, scheduler task and trigger route in src/server/routes is mapped in devvit.json (AGENTS.md rule) and that nothing in devvit.json points at a route that no longer exists. Fix devvit.json if needed."
+      }
+    }
+  ]
+}

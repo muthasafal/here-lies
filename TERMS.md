@@ -1,6 +1,6 @@
 # Terms of Service
 
-**Last updated:** December 2024
+**Last updated:** November 2026
 
 ## About Here Lies
 
@@ -23,10 +23,10 @@ When you create content in Here Lies (epitaphs, community crypts):
 
 ## Data Deletion
 
-If you delete your Reddit account:
+You can ask the subreddit's moderators to delete your Here Lies data at any time. When they do:
 - Your tombstones remain but become anonymous ("a nameless soul").
 - Your username and avatar are removed.
-- Your game history is anonymized.
+- Your profile, runs, streaks, reputation and leaderboard entries are deleted.
 
 ## Fair Play
 

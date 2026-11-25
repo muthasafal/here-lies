@@ -16,45 +16,46 @@ Findings from a review of the setup on 2026-11-25. Fix each one in the spec name
 Current state: `npm run test:types`, `npm test` (32 passing), `npm run build` and `npm run lint` all pass.
 
 ## To fix in upcoming specs
-1. **`server-api` spec:** replace the template's counter endpoints in `src/server/routes/api.ts` and the `example-form` route in `menu.ts`, and delete `routes/forms.ts` if no forms are used (and remove `forms` from `server/index.ts`).
-2. **`daily-loop` spec:**
+1. [x] (done 2026-11-26, Claude Code) **`server-api` spec:** replace the template's counter endpoints in `src/server/routes/api.ts` and the `example-form` route in `menu.ts`, and delete `routes/forms.ts` if no forms are used (and remove `forms` from `server/index.ts`).
+2. [x] (done 2026-11-26, Claude Code) **`daily-loop` spec:**
    - add `src/server/routes/cron.ts`, mounted at `/internal/cron`, for `daily` and `necropolis`
    - make the install trigger create today's crypt (not the template's generic post)
    - set the post title and splash (`submitCustomPost` options).
-3. **`tombstones-realtime` spec:** the Perspective API needs a Google Cloud API key stored with Devvit secrets/settings, never in code. The README needs a "Fetch Domains" section, and the app needs Terms and Privacy links (PRIVACY.md and TERMS.md exist; check that they're accurate before submitting).
-4. **Kiro features not set up yet** (playbook steps H4 and H5):
+3. [x] (done 2026-11-26, Claude Code; PRIVACY/TERMS corrected) **`tombstones-realtime` spec:** the Perspective API needs a Google Cloud API key stored with Devvit secrets/settings, never in code. The README needs a "Fetch Domains" section, and the app needs Terms and Privacy links (PRIVACY.md and TERMS.md exist; check that they're accurate before submitting).
+4. [x] (files written 2026-11-26 by Claude Code in Kiro's documented formats; see KIRO_LOG) **Kiro features not set up yet** (playbook steps H4 and H5):
    - `.kiro/hooks/` (fairness-sweep, tests-after-task, build-check-on-stop, readme-howto)
    - `.kiro/agents/` (fairness-auditor, devvit-rules-checker)
    - `.kiro/settings/mcp.json`
    These are judged for Kiroween.
 5. **Before playtest:** run `npm run dev` (`devvit playtest`) once in your private test subreddit to confirm the template app runs, before building features on it.
 
-## Resume here (paused 2026-11-25)
+## Written by Claude Code because Kiro had no credits (2026-11-26)
+Kiro's Free plan pool (shared with Airlock) ran out, so with Safal's go-ahead (relayed by the planning session)
+Claude Code implemented the logic layers itself. All of it is logged in docs/KIRO_LOG.md.
+- `src/shared/core`: generator, solver, knowledge, rules, scoring, streaks, share, day, difficulty, crypt names,
+  epitaph filter, editor validation, tutorial. Property tests for all 8 BRIEF 9 properties. `npm run sweep`.
+- `src/server`: repo/, services/, routes/ (api, cron, menu, forms, triggers), devvit.json menu/forms/settings.
+- `src/client`: lib/api.ts, lib/view-model.ts, hooks/*. **Screens are unstyled placeholders** in
+  `screens/Screens.tsx` + `components/Grid.tsx`. Claude Code did NOT design any UI.
+- `.kiro/hooks/*.json` (v1 format), `.kiro/agents/*.md`, `.kiro/settings/mcp.json`, `.kiro/specs/game-client/`.
 
-**State:** Skeleton not started. No Kiro prompts have been sent for Here Lies (0 credits used by this project). The repo is unchanged since commit d62aeb3: template app + core types/rng/utils, 32 tests, playtest installed in r/here_lies_game_dev, placeholder game screen.
+## Resume here (updated 2026-11-26)
+**State:** the game is playable end to end with placeholder screens. Green: test:types, lint, 63 tests, sweep (5,000 crypts, 0 unfair), build.
 
-**Blocker:** Kiro Free plan credits. 17.63 of 50 were used at pause time, and the pool is shared with Airlock, so neither project can finish on Free. Waiting on Safal to upgrade or get the Kiroween credit grant.
+**Exact next step:** when Kiro has credits (upgrade or Kiroween grant), take the desktop lock, focus the here-lies
+Kiro window and paste:
+```text
+Open the spec .kiro/specs/game-client (requirements.md, design.md, tasks.md). It was drafted by Claude Code
+while you had no credits; you own all of the UI. Read docs/BRIEF.md sections 3-5 and 7.6-7.8 and
+.kiro/steering/art-direction.md, revise requirements and design where you disagree (keep the "Contract"
+section), then execute the tasks. The logic in src/shared, src/server, src/client/hooks and src/client/lib is
+done and tested: do not change its behaviour. Replace the placeholder screens/Screens.tsx and
+components/Grid.tsx with your designed screens. Run npm run test:types, lint, test and build after each task.
+```
+Then review each phase doc, verify, commit, push, add a KIRO_LOG entry and a screenshot in docs/kiro-shots/.
 
-**Next step:** paste the prompt below into Kiro chat in the here-lies window (follow the desktop lock protocol). Review requirements.md, then design.md (it must map every BRIEF feature to a file), then tasks. Then run test:types, lint, test and build, and commit. After that come tooling (H4-H5) and the feature specs in spec-table order.
-
-### Drafted Kiro prompt: architecture-skeleton (verbatim)
-
-````text
-New spec: architecture-skeleton. Please create it as a Kiro spec (requirements -> design -> tasks) in .kiro/specs/architecture-skeleton/.
-
-Source of truth: #docs/BRIEF.md (read all of it; never shorten or edit it). Also follow #AGENTS.md, .kiro/steering/*, and docs/REVIEW.md.
-
-Goal: top-down structure before code. Create EVERY file the finished game needs (BRIEF sections 4-9), with real signatures and types but stub bodies, all wired together so the app builds. No game logic yet: later specs (core-engine, server-api, daily-loop, game-client, tombstones-realtime, reveal-and-votes, result-and-sharing, practice-mode, community-crypts, necropolis) fill the stubs.
-
-The skeleton must include:
-1. src/shared/core: keep types.ts, rng.ts, utils.ts and their 32 tests unchanged. Add stub modules: generator.ts, solver.ts, knowledge.ts (constraint propagation / frontier enumeration), omens.ts, rules.ts (applyAction for move/bone/flare/retreat), scoring.ts (incl. pioneer multiplier), streaks.ts, share.ts (emoji text), epitaph-filter.ts (local word filter), crypt-names.ts (word pools), difficulty.ts (weekday table), day.ts (dayId/isoWeek/UTC helpers), editor-validate.ts, tutorial.ts (fixed tutorial crypt + hints), index.ts barrel.
-2. src/shared/api.ts: every request/response type for every endpoint in BRIEF 7.3, plus realtime message types (7.5).
-3. src/server: routes/api.ts (all /api endpoints in 7.3, replacing the template counter endpoints), routes/cron.ts (/internal/cron/daily and /necropolis), routes/menu.ts (create-today, review-ugc, approve-ugc, remove-epitaph; delete the example-form route and forms.ts if unused), routes/triggers.ts (install creates today's crypt; user-delete/data deletion if Devvit supports it), repo/ (one module per Redis key family in BRIEF 7.4, plus repo/keys.ts with typed key builders), services/ (runs, tombstones, votes, leaderboards, streaks, flair, posts/splash, moderation incl. Perspective via Devvit settings, realtime publish, rate-limit, necropolis, ugc). Mount everything in index.ts. Every menu item MUST be in devvit.json with its /internal route; add the Perspective API key as a Devvit secret setting in devvit.json (no real key).
-4. src/client: the full React screen and component tree from BRIEF 7.6 (Splash, Game, Death/Epitaph, Reveal and Vote, Result card, Leaderboards, Editor, Practice picker, How-to-play hints) with typed props; components (Grid, Room, Tombstone, GraveMound, OmenBadge, OilLantern meter, ToolBar for bone/flare, LanternCanvas, Toasts, LiveRegion); hooks (useToday, useRun, useRealtime, useKeyboardControls, useReducedMotion, useHints); a typed api client. Keep game logic out of presentational components (hooks/state only) so a later re-skin touches only layout and styling. Placeholder visuals only; real art comes in game-client.
-5. Realtime channel helper for crypt-{dayId}.
-6. A short doc comment on EVERY exported function describing the logic it will implement and which BRIEF section it comes from. Stubs throw `new Error('not implemented: <spec name>')` or return safe placeholders where the build/UI needs them.
-
-Constraints: Devvit Web 0.15.6 on the template, app name here-lies-game, no type casts, type aliases, named exports, no Reddit branding, runAs USER only from the explicit share button, no real keys.
-
-Done when: npm run test:types, npm run lint, npm test (32 existing tests still pass) and npm run build all pass, and design.md has a table mapping every BRIEF feature to the file(s) that own it. Start with requirements.md and stop for my review.
-````
+**For Safal (never done by Claude):**
+- `devvit upload` (Reddit GotD needs the app uploaded, NOT published) — run `npm run deploy`.
+- Optional secret: `npx devvit settings set perspectiveApiKey` (Google Cloud key for Perspective API).
+- HTTP domain approval for commentanalyzer.googleapis.com is requested at upload; allow 1-2 business days.
+- Make the public test subreddit (under 200 members) and install the app there for the Reddit submission.

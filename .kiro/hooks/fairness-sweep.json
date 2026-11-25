@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Fairness sweep",
+      "trigger": "PostFileSave",
+      "matcher": "src[/\\\\]shared[/\\\\]core[/\\\\].*\\.ts$",
+      "action": {
+        "type": "command",
+        "command": "npm run sweep"
+      }
+    }
+  ]
+}

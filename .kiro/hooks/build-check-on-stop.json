@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Build check on stop",
+      "trigger": "Stop",
+      "action": {
+        "type": "command",
+        "command": "npm run test:types && npm run build"
+      }
+    }
+  ]
+}

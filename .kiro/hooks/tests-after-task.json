@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Tests after task",
+      "trigger": "PostTaskExec",
+      "action": {
+        "type": "command",
+        "command": "npx vitest run"
+      }
+    }
+  ]
+}

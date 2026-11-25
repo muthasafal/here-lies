@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Regenerate README How to play",
+      "trigger": "Manual",
+      "action": {
+        "type": "agent",
+        "prompt": "Regenerate the \"How to play\" section of README.md from .kiro/steering/game-rules.md and docs/BRIEF.md section 4, in plain, friendly language for Reddit players (short paragraphs, the four omens with their glyph names, bones, flare, tombstones, epitaphs can lie, scoring in one line). Change only that section. Never edit docs/BRIEF.md."
+      }
+    }
+  ]
+}

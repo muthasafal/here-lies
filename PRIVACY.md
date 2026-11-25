@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** December 2024
+**Last updated:** November 2026
 
 ## What We Collect
 
@@ -24,15 +24,15 @@ Here Lies stores the following data to operate the game:
 ## How We Use Your Data
 
 - **To operate the game:** Track your progress, calculate scores, display tombstones
-- **To display leaderboards:** Show usernames and scores (opt-out available via settings)
-- **To set flair:** Update your subreddit flair with streak and titles (opt-out available)
+- **To display leaderboards:** Show usernames and scores of players who escaped or retreated
+- **To set flair:** Update your subreddit flair with streak and titles (turn on Quiet mode on the result screen to stop this and the live escape announcements)
 - **To moderate content:** Filter epitaphs through Perspective API (see below)
 
 ## Third-Party Services
 
 ### Perspective API (commentanalyzer.googleapis.com)
 
-When you submit an epitaph, the text (up to 60 characters) is sent to Perspective API for automated toxicity detection.
+If a moderator of the subreddit has configured a Perspective API key, the text of an epitaph you carve (up to 60 characters) is sent to Perspective API for automated toxicity detection, with the request flag `doNotStore`. If no key is configured, nothing is sent.
 
 **What is sent:** Epitaph text only. No username, no user ID, no other game data.
 
@@ -57,14 +57,15 @@ We do not control Perspective API's data practices. Refer to their policies for 
 
 - **Active data:** Stored in Redis (per-subreddit) while you play.
 - **Historical data:** Tombstones, scores, and streaks persist indefinitely for game continuity.
-- **Account deletion:** When you delete your Reddit account, we anonymize your data (tombstones become "a nameless soul," username/avatar removed).
+- **Deletion:** Ask the subreddit's moderators (modmail) to delete your Here Lies data. They have a one-click moderator action that deletes your profile, streaks, reputation, runs and leaderboard entries and makes your tombstones anonymous ("a nameless soul"; username and avatar removed). The anonymous tombstone stays because it is part of other players' game history.
+- **Device storage:** The game keeps which tutorial hints you have seen in your browser's local storage. Nothing else.
 
 ## Your Rights
 
-- **Opt out of flair updates:** Available in app settings.
+- **Opt out of flair updates and escape announcements:** Quiet mode on the result screen.
 - **Anonymous epitaphs:** Choose "anonymous" when carving your epitaph.
 - **Report content:** Use Reddit's reporting system or moderator tools.
-- **Account deletion:** Delete your Reddit account to trigger data anonymization.
+- **Data deletion:** Ask the subreddit's moderators; see Data Retention above.
 
 ## Data Security
 
@@ -86,7 +87,7 @@ We may update this policy. We'll notify users through the app or subreddit when 
 
 ## Contact
 
-Questions? Contact the developer via the [GitHub repository](https://github.com/yourusername/here-lies) or Reddit modmail in the subreddit where the app is installed.
+Questions? Contact the developer via the [GitHub repository](https://github.com/muthasafal/here-lies) or Reddit modmail in the subreddit where the app is installed.
 
 ## Reddit's Policies
 
