@@ -1,6 +1,6 @@
 {
   "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
-  "name": "here-lies",
+  "name": "here-lies-game",
   "post": {
     "dir": "dist/client",
     "entrypoints": {
@@ -22,11 +22,16 @@
     "realtime": true,
     "http": {
       "enable": true,
-      "domains": ["commentanalyzer.googleapis.com"]
+      "domains": [
+        "commentanalyzer.googleapis.com"
+      ]
     },
     "reddit": {
       "enable": true,
-      "asUser": ["SUBMIT_COMMENT", "SUBSCRIBE_TO_SUBREDDIT"]
+      "asUser": [
+        "SUBMIT_COMMENT",
+        "SUBSCRIBE_TO_SUBREDDIT"
+      ]
     }
   },
   "scheduler": {

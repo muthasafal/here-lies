@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "here-lies",
+  "name": "here-lies-game",
   "version": "0.1.0",
   "description": "A daily haunted-crypt deduction game for Reddit where the dead light the way",
   "license": "Apache-2.0",
