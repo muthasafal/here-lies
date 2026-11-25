@@ -15,7 +15,9 @@ export const triggers = new Hono();
 async function ensureToday(): Promise<TriggerResponse> {
   const now = Date.now();
   const r = await ensureCrypt(db, devvitPlatform(), dayIdOf(new Date(now)), now);
-  return { status: 'success', message: `Crypt ${r.rec.dayId} ${r.created ? 'created' : 'already open'}` };
+  const message = `Crypt ${r.rec.dayId} (#${r.rec.number}, ${r.rec.name}) ${r.created ? 'created' : 'already open'} · post ${r.rec.postId ?? 'none'}`;
+  console.log(`[here-lies] ${message}`);
+  return { status: 'success', message };
 }
 
 triggers.post('/on-app-install', async (c) => {

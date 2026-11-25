@@ -16,6 +16,7 @@ cron.post('/daily', async (c) => {
   try {
     const now = Date.now();
     const r = await ensureCrypt(db, devvitPlatform(), dayIdOf(new Date(now)), now);
+    console.log(`[here-lies] daily cron: crypt ${r.rec.dayId} ${r.created ? 'created' : 'already open'} · post ${r.rec.postId ?? 'none'}`);
     return c.json({ status: 'ok', dayId: r.rec.dayId, created: r.created }, 200);
   } catch (e) {
     console.error('daily cron failed', e);
