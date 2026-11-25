@@ -37,13 +37,6 @@ export type BoneResult = 'long-fall' | 'shriek' | 'clatter';
 /** How the player died */
 export type DeathCause = 'fell' | 'cursed' | 'stranded';
 
-/** Run status */
-export type RunStatus = 
-  | 'active'
-  | 'escaped-with-relic'
-  | 'retreated'
-  | 'died';
-
 /** Full crypt layout (server-side, hidden during active run) */
 export interface CryptLayout {
   grid: CellContent[][]; // 7x7 grid
@@ -76,45 +69,6 @@ export interface CryptMeta {
   designer?: string;    // For community crypts
 }
 
-/** Player knowledge state */
-export interface KnowledgeState {
-  visited: Set<string>;        // "x,y" for each visited cell
-  knowledge: Map<string, CellKnowledge>; // "x,y" -> what we know
-  boneResults: Map<string, BoneResult>;  // "x,y" -> bone test result
-  flareReveals: Map<string, Omens>;      // "x,y" -> omens from flare
-}
-
-/** Active game state */
-export interface GameState {
-  status: RunStatus;
-  position: Coord;
-  oil: number;
-  bonesLeft: number;
-  flareUsed: boolean;
-  cursed: boolean;
-  hasRelic: boolean;
-  knowledge: KnowledgeState;
-  deathCause?: DeathCause;
-  deathCell?: Coord;
-}
-
-/** Player action */
-export type GameAction =
-  | { type: 'move'; direction: Direction }
-  | { type: 'bone'; target: Coord }
-  | { type: 'flare' }
-  | { type: 'retreat' };
-
-/** Result of applying an action */
-export interface ActionResult {
-  success: boolean;
-  newState: GameState;
-  omens?: Omens;
-  boneResult?: BoneResult;
-  flareOmens?: Map<string, Omens>;
-  error?: string;
-}
-
 /** Tombstone data */
 export interface Tombstone {
   id: string;
@@ -138,29 +92,6 @@ export type ReputationTitle =
   | 'Poet of the Crypt'
   | 'Architect'
   | null;
-
-/** Player score breakdown */
-export interface ScoreBreakdown {
-  base: number;
-  oilBonus: number;
-  bonesBonus: number;
-  flareBonus: number;
-  cursePenalty: number;
-  raw: number;
-  pioneerMultiplier: number;
-  final: number;
-}
-
-/** Solver output */
-export interface SolverResult {
-  solvable: boolean;
-  oilNeeded: number;          // L (oil for perfect deduction)
-  inferenceSteps: number;
-  usedBones: number;
-  usedFlare: boolean;
-  path?: Coord[];             // Solution path (for debugging)
-  stuckReason?: string;       // Why it failed
-}
 
 /** Constants */
 export const GRID_SIZE = 7;
