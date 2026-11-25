@@ -40,7 +40,7 @@ Claude Code implemented the logic layers itself. All of it is logged in docs/KIR
 - `.kiro/hooks/*.json` (v1 format), `.kiro/agents/*.md`, `.kiro/settings/mcp.json`, `.kiro/specs/game-client/`.
 
 ## Resume here (updated 2026-11-26)
-**State:** the game is playable end to end with placeholder screens. Green: test:types, lint, 63 tests, sweep (5,000 crypts, 0 unfair), build.
+**State:** the game is playable end to end with placeholder screens. Verified on Reddit 2026-11-26: playtest v0.0.1.5 in r/here_lies_game_dev; the upgrade trigger found Crypt #1 "The Drowned Undercroft" (post t3_1y5k643). Kiro shows "You've reached your monthly usage limit" (both projects), so the UI waits for a top-up or the Kiroween credit grant. Green: test:types, lint, 63 tests, sweep (5,000 crypts, 0 unfair), build.
 
 **Exact next step:** when Kiro has credits (upgrade or Kiroween grant), take the desktop lock, focus the here-lies
 Kiro window and paste:
