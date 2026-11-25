@@ -50,18 +50,62 @@
     "items": [
       {
         "label": "Here Lies: create today's crypt now",
-        "description": "Generate and post today's crypt",
+        "description": "Generate and post today's crypt if it is missing",
         "location": "subreddit",
         "forUserType": "moderator",
-        "endpoint": "/internal/menu/post-create"
+        "endpoint": "/internal/menu/create-today"
+      },
+      {
+        "label": "Here Lies: review community crypts",
+        "description": "Approve or reject player-made crypts for Fridays",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/review-ugc"
+      },
+      {
+        "label": "Here Lies: moderate an epitaph",
+        "description": "Remove or restore an epitaph in this crypt",
+        "location": "post",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/remove-epitaph"
+      },
+      {
+        "label": "Here Lies: delete a player's data",
+        "description": "Anonymise tombstones and delete profile, streaks and scores",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/forget-user"
+      },
+      {
+        "label": "Here Lies: post this week's Necropolis",
+        "description": "Post the weekly graveyard now",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/post-necropolis"
       }
     ]
   },
   "triggers": {
-    "onAppInstall": "/internal/triggers/on-app-install"
+    "onAppInstall": "/internal/triggers/on-app-install",
+    "onAppUpgrade": "/internal/triggers/on-app-upgrade"
   },
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build"
+  },
+  "forms": {
+    "reviewUgc": "/internal/form/review-ugc",
+    "removeEpitaph": "/internal/form/remove-epitaph",
+    "forgetUser": "/internal/form/forget-user"
+  },
+  "settings": {
+    "global": {
+      "perspectiveApiKey": {
+        "type": "string",
+        "label": "Perspective API key (epitaph moderation)",
+        "helpText": "Google Cloud API key for commentanalyzer.googleapis.com. Optional: without it only the local word filter runs.",
+        "isSecret": true
+      }
+    }
   }
 }
