@@ -13,6 +13,9 @@ export function coordKey(coord: Coord): string {
 /** Parse string key "x,y" to coord */
 export function parseCoordKey(key: string): Coord {
   const [x, y] = key.split(',').map(Number);
+  if (x === undefined || y === undefined || Number.isNaN(x) || Number.isNaN(y)) {
+    throw new Error(`Invalid coord key: ${key}`);
+  }
   return { x, y };
 }
 

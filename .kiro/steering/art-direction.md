@@ -1,3 +1,7 @@
+---
+inclusion: fileMatch
+fileMatchPattern: "src/client/**"
+---
 # Art Direction
 
 Applied to: `src/client/**`

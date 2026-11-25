@@ -28,14 +28,20 @@ export class SeededRNG {
   shuffle<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {
       const j = this.nextInt(0, i);
-      [array[i], array[j]] = [array[j], array[i]];
+      const a = array[i];
+      const b = array[j];
+      if (a === undefined || b === undefined) continue;
+      array[i] = b;
+      array[j] = a;
     }
     return array;
   }
 
   /** Pick random element from array */
   pick<T>(array: T[]): T {
-    return array[this.nextInt(0, array.length - 1)];
+    const value = array[this.nextInt(0, array.length - 1)];
+    if (value === undefined) throw new Error('pick() called on an empty array');
+    return value;
   }
 }
 

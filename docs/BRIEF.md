@@ -365,20 +365,22 @@ ugc:{ugcId}                  hash  { layout, name, designerId, status }
 ---
 
 ## 8. Repo structure
+Built on Reddit's official **devvit-template-react** (Devvit Web 0.15.4: Hono server, React 19, Tailwind 4, Vite 8, TypeScript 6). Keep the template layout; see `.kiro/steering/structure.md` for the full tree.
 ```
 here-lies/
   .kiro/                 steering, specs, hooks, agents, settings (committed)
   docs/BRIEF.md          this file
   docs/KIRO_LOG.md       running log of Kiro usage for the write-up
-  packages/core/         pure TS: rng, generator, solver, rules engine (apply action → new state), scoring, share text
-    test/                vitest + fast-check
-  src/client/            React app: splash, game, reveal, result, leaderboards, editor
-  src/server/            Devvit Web endpoints, redis repo layer, moderation, cron, menu
-  devvit.json  package.json  tsconfig.json  vite.config.ts
+  src/shared/core/       pure TS game engine: rng, generator, solver, rules engine, scoring, share text (+ *.test.ts with vitest + fast-check)
+  src/shared/api.ts      request/response types shared by client and server
+  src/client/            React webview: splash (inline), game (expanded), components, hooks
+  src/server/            Hono app: routes/api.ts, routes/menu.ts, routes/triggers.ts, routes/cron.ts, repo/ (Redis), moderation
+  tools/                 tsconfig project references (from the template)
+  devvit.json  package.json  vite.config.ts  vitest.config.ts  eslint.config.js  AGENTS.md
   README.md              game overview, how to play, Fetch Domains, Terms, Privacy links
   LICENSE
 ```
-**The core package is shared by the client (practice, editor) and the server (authoritative runs), so the rules can never drift apart.**
+**The core lives in `src/shared/core` and is imported by both client (practice, editor) and server (authoritative runs), so the rules can never drift apart.**
 
 ## 9. Testing
 
@@ -416,7 +418,7 @@ here-lies/
   8. `community-crypts` (editor, queue, moderator menu).
   9. `necropolis`.
 - **Hooks:**
-  - On saving `packages/core/**`: run the solver over 5,000 seeds and fail if any crypt is unsolvable or slow.
+  - On saving `src/shared/core/**`: run the solver over 5,000 seeds and fail if any crypt is unsolvable or slow.
   - After task execution: `vitest run`.
   - On agent stop: type-check, then `devvit` build and config validation.
   - A manual hook: "regenerate README how-to-play from game-rules.md".

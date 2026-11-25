@@ -2,11 +2,11 @@
 
 This document tracks all significant Kiro interactions for the Kiroween submission write-up.
 
-## Project Setup (Dec 2024)
+## Project Setup (Nov 2026)
 
 ### Session 1: Initial Structure and Foundation
 
-**Date:** Dec 2024
+**Date:** Nov 2026
 
 #### Created comprehensive steering documentation:
 - **`structure.md`**: Complete repository layout with import aliases, file naming conventions, Redis key schema, build outputs
@@ -24,7 +24,7 @@ This document tracks all significant Kiro interactions for the Kiroween submissi
 - **`package.json`**: Workspace setup, build scripts, test commands
 - **`.eslintrc.json`**: TypeScript + React Hooks linting
 
-#### Core Package (`packages/core/`):
+#### Core Package (`src/shared/core/`):
 - **`types.ts`**: Complete type system (Coord, Direction, CellContent, Omens, GameState, ActionResult, Tombstone, etc.)
   - Difficulty by weekday constants
   - Direction vectors and offsets
@@ -58,7 +58,7 @@ This document tracks all significant Kiro interactions for the Kiroween submissi
 here-lies/
 ├── .kiro/steering/        ✓ 6 steering docs
 ├── docs/                  ✓ BRIEF.md, KIRO_LOG.md
-├── packages/core/         ✓ Types, RNG, utils with tests
+├── src/shared/core/         ✓ Types, RNG, utils with tests
 ├── src/client/            ✓ Placeholder HTML entrypoints
 ├── src/server/            ✓ Basic server structure
 ├── devvit.json            ✓ Full configuration
@@ -76,7 +76,7 @@ here-lies/
 
 ### Key Decisions Made:
 
-1. **Shared core package:** Pure TypeScript in `packages/core/` ensures client practice mode and server authoritative runs use identical rules. Zero drift between implementations.
+1. **Shared core package:** Pure TypeScript in `src/shared/core/` ensures client practice mode and server authoritative runs use identical rules. Zero drift between implementations.
 
 2. **Server-authoritative anti-cheat:** Client never receives hidden layout during scored runs. Every move is a POST to the server, which holds the layout in Redis and returns only observable information.
 
@@ -92,8 +92,8 @@ here-lies/
 
 ### Test Results:
 ```
-✓ packages/core/src/rng.test.ts (11 tests)
-✓ packages/core/src/utils.test.ts (21 tests)
+✓ src/shared/core/rng.test.ts (11 tests)
+✓ src/shared/core/utils.test.ts (21 tests)
 Test Files  2 passed (2)
 Tests       32 passed (32)
 Duration    401ms

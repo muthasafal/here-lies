@@ -1,3 +1,7 @@
+---
+inclusion: fileMatch
+fileMatchPattern: ["src/server/**", "devvit.json"]
+---
 # Devvit Constraints
 
 Applied to: `src/server/**`, `devvit.json`

@@ -1,3 +1,6 @@
+---
+inclusion: always
+---
 # Product Steering
 
 **Here Lies** is a daily haunted-crypt deduction game on Reddit where every player who dies leaves a tombstone and an epitaph for everyone after them. The whole subreddit hunts the same crypt each day, and the dead light the way.

@@ -1,3 +1,6 @@
+---
+inclusion: always
+---
 # Game Rules (MUST Constraints)
 
 These are the precise, non-negotiable rules of Here Lies. Any implementation that violates these rules is incorrect.

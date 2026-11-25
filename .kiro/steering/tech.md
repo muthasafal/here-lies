@@ -1,14 +1,17 @@
+---
+inclusion: always
+---
 # Technical Steering
 
 ## Platform: Devvit Web (Reddit)
 
-**Facts verified against Devvit docs, Nov 2024:**
+**Facts verified against Devvit docs, Nov 2026. Stack from the official devvit-template-react: Devvit Web 0.15.4, Hono server, React 19, Tailwind 4, Vite 8, TypeScript 6, Vitest + fast-check.**
 
 ### Structure
 - `src/client/`: React webview (the game UI)
 - `src/server/`: API endpoints (`/api/*`), internal endpoints (`/internal/*` for scheduler, triggers, menu)
 - `devvit.json`: configuration, permissions, scheduler tasks, triggers, menu items
-- Build output: `dist/client/` (HTML entrypoints) and `dist/server/index.js`
+- Build output: `dist/client/` (HTML entrypoints) and `dist/server/index.cjs`, both from `vite build` with the `@devvit/start/vite` plugin
 
 ### Limits
 - **Request timeout:** 30 seconds per request
@@ -53,7 +56,7 @@
 ## Architecture
 
 ### Shared Core Package
-`packages/core/` contains pure TypeScript with zero dependencies on Devvit or React:
+`src/shared/core/` contains pure TypeScript with zero dependencies on Devvit or React:
 - RNG (mulberry32 or sfc32)
 - Generator (seeded crypt creation)
 - Solver (reference deduction engine)
@@ -64,14 +67,14 @@
 **Why:** The client runs practice crypts and the editor locally. The server runs scored games authoritatively. The rules must never drift. Shared core = single source of truth.
 
 ### Client (src/client/)
-- **Stack:** React + TypeScript + Vite
+- **Stack:** React 19 + TypeScript + Vite + Tailwind 4 (from the template)
 - **Rendering:** DOM/SVG for UI, one `<canvas>` for lantern light, fog and particles
 - **Motion:** CSS transitions and transforms (or Framer Motion), respecting `prefers-reduced-motion`
 - **State:** React Context or Zustand for game state
 - **Realtime:** Devvit `connectRealtime` for live tombstone drops and stats
 
 ### Server (src/server/)
-- **Endpoints:** Express-style handlers in Devvit Web
+- **Endpoints:** Hono routers in `src/server/routes/` (import `context`, `redis`, `reddit`, `realtime`, `scheduler` from `@devvit/web/server`)
 - **Data layer:** Redis repository pattern (one module per aggregate: crypts, runs, tombstones, votes, leaderboards, streaks, UGC)
 - **Anti-cheat:** Server-authoritative. The client never receives the hidden layout during a scored run. Each action is a POST to the server, which holds the layout in Redis and returns only observable results.
 - **Moderation:** Perspective API for epitaphs (when available), plus local word filter, plus moderator menu actions
@@ -104,8 +107,8 @@
 - Public test subreddit (under 200 members) for final validation
 
 ## Build Tools
-- **TypeScript:** strict mode, paths for `@core/*` aliases
-- **Vite:** client bundler, with separate entrypoints for splash and game
+- **TypeScript:** strict mode with `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes` (template settings); project references in `tools/`; no path aliases
+- **Vite:** builds client and server via the Devvit plugin; entrypoints are declared in `devvit.json`
 - **Vitest:** test runner
 - **Devvit CLI:** `devvit upload`, `devvit playtest`
 

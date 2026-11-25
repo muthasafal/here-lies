@@ -1,13 +1,12 @@
 {
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
   "name": "here-lies",
-  "version": "0.1.0",
-  "description": "A daily haunted-crypt deduction game where the dead light the way",
   "post": {
     "dir": "dist/client",
     "entrypoints": {
       "default": {
-        "entry": "splash.html",
-        "height": "tall"
+        "inline": true,
+        "entry": "splash.html"
       },
       "game": {
         "entry": "game.html"
@@ -15,12 +14,12 @@
     }
   },
   "server": {
-    "entry": "dist/server/index.js"
+    "dir": "dist/server",
+    "entry": "index.cjs"
   },
   "permissions": {
     "redis": true,
     "realtime": true,
-    "media": false,
     "http": {
       "enable": true,
       "domains": ["commentanalyzer.googleapis.com"]
@@ -42,29 +41,22 @@
       }
     }
   },
-  "triggers": {
-    "onAppInstall": "/internal/triggers/install"
-  },
   "menu": {
     "items": [
       {
         "label": "Here Lies: create today's crypt now",
+        "description": "Generate and post today's crypt",
         "location": "subreddit",
         "forUserType": "moderator",
-        "endpoint": "/internal/menu/create-today"
-      },
-      {
-        "label": "Here Lies: review community crypts",
-        "location": "subreddit",
-        "forUserType": "moderator",
-        "endpoint": "/internal/menu/review-ugc"
-      },
-      {
-        "label": "Here Lies: remove this epitaph",
-        "location": "post",
-        "forUserType": "moderator",
-        "endpoint": "/internal/menu/remove-epitaph"
+        "endpoint": "/internal/menu/post-create"
       }
     ]
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
   }
 }

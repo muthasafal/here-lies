@@ -1,3 +1,5 @@
+> Historical note: this describes Kiro's first scaffold. On 2026-11-25 the project was rebuilt on Reddit's official devvit-template-react, and the core moved to src/shared/core. See .kiro/steering/structure.md for the current layout.
+
 # Project Status
 
 **Here Lies** - Daily haunted-crypt deduction game for Reddit

@@ -83,7 +83,7 @@ Monday is easiest (fewer hazards, more bones). Sunday is brutal (10 pits, 1 bone
 
 ## Development
 
-Built with [Kiro](https://kiro.dev) during the submission period for Kiroween 2024.
+Built with [Kiro](https://kiro.dev) during the submission period for Kiroween 2026.
 
 ```bash
 npm install
@@ -95,7 +95,7 @@ npm run upload        # Upload to Reddit
 
 ### Project Structure
 
-- `packages/core/` - Pure TypeScript game engine (shared by client and server)
+- `src/shared/core/` - Pure TypeScript game engine (shared by client and server)
 - `src/client/` - React webview (the game UI)
 - `src/server/` - Devvit Web API endpoints
 - `.kiro/` - Kiro steering, hooks, and configuration
@@ -131,7 +131,7 @@ Moderators can always remove any epitaph through the moderator menu, and users c
 
 Apache-2.0 - see [LICENSE](LICENSE)
 
-Built by Safal Mutha for Kiroween 2024 (Resurrection category) and Reddit's Game of the Day hackathon.
+Built by Safal Mutha for Kiroween 2026 (Resurrection category) and Reddit's Game of the Day hackathon.
 
 ## Hackathon Submissions
 

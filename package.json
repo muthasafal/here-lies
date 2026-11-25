@@ -1,59 +1,56 @@
 {
+  "private": true,
   "name": "here-lies",
   "version": "0.1.0",
-  "description": "A daily haunted-crypt deduction game for Reddit",
-  "private": true,
-  "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "vite",
-    "build": "npm run build:core && npm run build:server && npm run build:client",
-    "build:core": "npm run build --workspace=packages/core",
-    "build:client": "vite build",
-    "build:server": "tsc -p src/server/tsconfig.json",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:pbt": "vitest run --testNamePattern=\"property\"",
-    "type-check": "tsc --noEmit",
-    "playtest": "devvit playtest",
-    "upload": "devvit upload",
-    "lint": "eslint . --ext .ts,.tsx"
-  },
-  "devDependencies": {
-    "@types/node": "^20.10.0",
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.56.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "fast-check": "^3.15.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vitest": "^1.1.0"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
+  "description": "A daily haunted-crypt deduction game for Reddit where the dead light the way",
   "license": "Apache-2.0",
   "author": "Safal Mutha",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/here-lies.git"
+    "url": "https://github.com/muthasafal/here-lies.git"
   },
-  "keywords": [
-    "reddit",
-    "devvit",
-    "game",
-    "deduction",
-    "hunt-the-wumpus",
-    "daily-challenge"
-  ]
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "deploy": "npm run test:types && npm run lint && devvit upload",
+    "dev": "devvit playtest",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "login": "devvit login",
+    "prettier": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:types": "tsc --build",
+    "test:unit": "vitest run"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@devvit/start": "0.15.4",
+    "@devvit/web": "0.15.4",
+    "@hono/node-server": "2.1.6",
+    "devvit": "0.15.4",
+    "hono": "4.13.17",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@tailwindcss/vite": "4.3.5",
+    "@types/node": "^24.13.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "eslint": "10.14.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.7",
+    "fast-check": "^4.3.0",
+    "globals": "17.14.0",
+    "prettier": "3.9.10",
+    "tailwindcss": "4.3.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.2",
+    "vite": "8.3.7",
+    "vitest": "^4.0.0"
+  }
 }
