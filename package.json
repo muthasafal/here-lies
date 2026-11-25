@@ -1,0 +1,59 @@
+{
+  "name": "here-lies",
+  "version": "0.1.0",
+  "description": "A daily haunted-crypt deduction game for Reddit",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:core && npm run build:server && npm run build:client",
+    "build:core": "npm run build --workspace=packages/core",
+    "build:client": "vite build",
+    "build:server": "tsc -p src/server/tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:pbt": "vitest run --testNamePattern=\"property\"",
+    "type-check": "tsc --noEmit",
+    "playtest": "devvit playtest",
+    "upload": "devvit upload",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "fast-check": "^3.15.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "Apache-2.0",
+  "author": "Safal Mutha",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/here-lies.git"
+  },
+  "keywords": [
+    "reddit",
+    "devvit",
+    "game",
+    "deduction",
+    "hunt-the-wumpus",
+    "daily-challenge"
+  ]
+}

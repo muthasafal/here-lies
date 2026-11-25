@@ -1,0 +1,70 @@
+{
+  "name": "here-lies",
+  "version": "0.1.0",
+  "description": "A daily haunted-crypt deduction game where the dead light the way",
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "entry": "splash.html",
+        "height": "tall"
+      },
+      "game": {
+        "entry": "game.html"
+      }
+    }
+  },
+  "server": {
+    "entry": "dist/server/index.js"
+  },
+  "permissions": {
+    "redis": true,
+    "realtime": true,
+    "media": false,
+    "http": {
+      "enable": true,
+      "domains": ["commentanalyzer.googleapis.com"]
+    },
+    "reddit": {
+      "enable": true,
+      "asUser": ["SUBMIT_COMMENT", "SUBSCRIBE_TO_SUBREDDIT"]
+    }
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-crypt": {
+        "endpoint": "/internal/cron/daily",
+        "cron": "0 0 * * *"
+      },
+      "weekly-necropolis": {
+        "endpoint": "/internal/cron/necropolis",
+        "cron": "5 0 * * 0"
+      }
+    }
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/install"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Here Lies: create today's crypt now",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/create-today"
+      },
+      {
+        "label": "Here Lies: review community crypts",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/review-ugc"
+      },
+      {
+        "label": "Here Lies: remove this epitaph",
+        "location": "post",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/remove-epitaph"
+      }
+    ]
+  }
+}
